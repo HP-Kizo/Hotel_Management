@@ -1,0 +1,37 @@
+.transaction__wrap--tb {
+  min-width: 1000px;
+  margin: 0 auto;
+}
+.transaction__wrap--tb .transaction__wrap--tr {
+  background-color: #32a4c1;
+  color: white;
+  min-width: 100%;
+}
+tr {
+  text-align: center;
+  height: 40px;
+}
+
+tr .status {
+  border-radius: 5px;
+  color: #129912;
+}
+.table-custom {
+  /* Các kiểu CSS áp dụng cho table */
+  /* Ví dụ: */
+  width: 90%;
+  border-collapse: collapse;
+}
+
+.table-custom th {
+  /* Các kiểu CSS áp dụng cho các thẻ th trong table */
+  /* Ví dụ: */
+  font-weight: bold;
+}
+
+.table-custom td {
+  /* Các kiểu CSS áp dụng cho các thẻ td trong table */
+  /* Ví dụ: */
+  padding: 5px 5px;
+  border: 1px solid #ccc;
+}

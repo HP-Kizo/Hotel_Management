@@ -1,0 +1,20 @@
+.table-custom {
+  /* Các kiểu CSS áp dụng cho table */
+  /* Ví dụ: */
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-custom th {
+  /* Các kiểu CSS áp dụng cho các thẻ th trong table */
+  /* Ví dụ: */
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.table-custom td {
+  /* Các kiểu CSS áp dụng cho các thẻ td trong table */
+  /* Ví dụ: */
+  padding: 5px 5px;
+  border: 1px solid #ccc;
+}

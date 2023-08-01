@@ -1,0 +1,254 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+.header {
+  position: relative;
+  width: 100%;
+}
+.header::before {
+  content: "";
+  position: fixed;
+  background-color: #a4a4a4;
+  width: 1px;
+  top: 0px;
+  bottom: 10px;
+  left: 180px;
+}
+
+.header::after {
+  content: "";
+  position: fixed;
+  background-color: #a4a4a4;
+  height: 1px;
+  left: 10px;
+  right: 10px;
+  top: 3 0px;
+}
+.title {
+  text-align: left;
+  margin-left: 20px;
+}
+.wrap {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.wrap--menu {
+  flex: 1;
+}
+.wrap--content {
+  flex: 4;
+}
+
+.wrap--content__container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.wrap--content__showTransaction {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 40px;
+
+  /* display: flex;
+  justify-content: left;
+  align-items: center; */
+}
+.wrap--content__item {
+  margin-top: 20px;
+  flex: 1;
+  border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 6px 6px 18px #dbd7d7, -6px -6px 18px #ffffff;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+tr {
+  height: 30px;
+}
+.btn--logout {
+  border: 0;
+  padding: 5px;
+  font-size: 16px;
+  background: #ffffff;
+}
+.btn--logout:hover {
+  cursor: pointer;
+}
+.status {
+  border-radius: 5px;
+  color: #129912;
+}
+
+.content__pseudo:nth-child(1):before {
+  position: absolute;
+  content: "USERS";
+  font-size: 12px;
+  color: #a4a4a4;
+  top: 0;
+  left: 3px;
+}
+
+.content__pseudo:nth-child(2):before {
+  position: absolute;
+  content: "ORDERS";
+  font-size: 12px;
+  color: #a4a4a4;
+  top: 0;
+  left: 3px;
+}
+
+.content__pseudo:nth-child(3):before {
+  position: absolute;
+  content: "EARNINGS";
+  font-size: 12px;
+  color: #a4a4a4;
+  top: 0;
+  left: 3px;
+}
+.content__pseudo:nth-child(4):before {
+  position: absolute;
+  content: "BALANCE";
+  font-size: 12px;
+  color: #a4a4a4;
+  top: 0;
+  left: 3px;
+}
+.wrap--content__item__icon {
+  position: absolute;
+  content: "icon";
+  color: #ffcccc;
+  bottom: 5px;
+  right: 3px;
+}
+.content--pseudo:not(:first-child):not(:last-child) {
+  margin-right: 20px;
+}
+
+.content--pseudo:first-child {
+  margin-right: 20px;
+}
+
+.table {
+  width: 100%;
+}
+
+.warp__menu--outside {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.warp__menu--outside li {
+  margin-left: 20px;
+}
+
+.table--tr {
+  text-align: center;
+}
+.wrap {
+  display: flex;
+}
+.sidebar {
+  flex: 1;
+  border-right: 0.5px solid rgb(230, 227, 227);
+  min-height: 100vh;
+  background-color: white;
+
+  .top {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #6439ff;
+    }
+  }
+
+  hr {
+    height: 0;
+    border: 0.5px solid rgb(230, 227, 227);
+  }
+
+  .center {
+    padding-left: 10px;
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+
+      .title {
+        font-size: 10px;
+        font-weight: bold;
+        color: #999;
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ece8ff;
+        }
+
+        .icon {
+          font-size: 18px;
+          color: #7451f8;
+        }
+
+        span {
+          font-size: 13px;
+          font-weight: 600;
+          color: #888;
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+  .top {
+  }
+  .bottom {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+
+    .colorOption {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      border: 1px solid #7451f8;
+      cursor: pointer;
+      margin: 5px;
+
+      &:nth-child(1) {
+        background-color: whitesmoke;
+      }
+      &:nth-child(2) {
+        background-color: #333;
+      }
+      &:nth-child(3) {
+        background-color: darkblue;
+      }
+    }
+  }
+}

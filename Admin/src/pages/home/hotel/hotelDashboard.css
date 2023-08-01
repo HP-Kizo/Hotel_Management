@@ -1,0 +1,14 @@
+.wrap--hotel {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+.btn {
+  border: none;
+  padding: 10px 20px;
+  background-color: #0071c2;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
