@@ -68,7 +68,7 @@ function FormBooking({ state, hotelDetail }) {
     );
     return formattedDate;
   };
-
+  console.log(hotelDetail);
   useEffect(() => {
     const fetchRoom = async (_id) => {
       fetch("http://localhost:5000/rooms/postRoom", {
@@ -102,7 +102,8 @@ function FormBooking({ state, hotelDetail }) {
     };
     hotelDetail && fetchRoom(hotelDetail.rooms);
   }, [date]);
-
+  console.log("Double", doubleRoom);
+  console.log("Twin", twinRoom);
   useEffect(() => {
     // Chuyển đổi thành số mili giây
     const timeDiff = Math.abs(
@@ -128,7 +129,6 @@ function FormBooking({ state, hotelDetail }) {
     });
     return isFound;
   };
-  console.log(info);
   const handleReserve = async () => {
     const error = {};
 
@@ -177,6 +177,7 @@ function FormBooking({ state, hotelDetail }) {
       }
     }
   };
+  console.log("Room select ", roomSelect);
   return (
     <>
       <div className="container">

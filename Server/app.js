@@ -8,15 +8,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
-const cookieParser = require("cookie-parser");
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    // origin: "*",
-    methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.set("view engine", "ejs");
 app.set("views", "views");
@@ -40,10 +32,6 @@ const transactionRoutes = require("./routes/transaction");
 
 const fs = require("fs");
 
-const store = new MongoDBStore({
-  uri: process.env.MONGO,
-  collection: "sessions",
-});
 const dataHotelPath = path.join(__dirname, "./data/hotels.json");
 const DataHotel = {
   all: function () {
@@ -68,6 +56,7 @@ const storeHotelsToDatabase = () => {
             desc: hotelResult.desc,
             rating: hotelResult.rating,
             featured: hotelResult.featured,
+            title: hotelResult.title,
             rooms: hotelResult.rooms,
             cheapestPrice: hotelResult.cheapestPrice,
           });
@@ -123,20 +112,7 @@ const initializeDatabase = async () => {
   }
 };
 initializeDatabase();
-store.on("error", function (error) {
-  console.error("Session store error:", error);
-});
 
-app.use(cookieParser());
-app.use(
-  session({
-    secret: "hoimanchi",
-    resave: false,
-    saveUninitialized: false,
-    store: store,
-    cookie: { sameSite: "lax", secure: false, maxAge: 1000 * 60 * 60 * 24 },
-  })
-);
 app.use("/users", userRoutes);
 app.use("/hotels", hotelRoutes);
 app.use("/rooms", roomRoutes);

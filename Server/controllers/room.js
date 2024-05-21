@@ -3,61 +3,51 @@ const Transaction = require("../models/transaction");
 const Hotel = require("../models/hotel");
 
 // Lọc các room phù hợp với mốc thời gian booking
-exports.postRoom = (req, res, next) => {
-  const requestData = req.body.data;
-  const listID = req.body.data.listIdRoom;
-  const startDate = new Date(requestData.date.startDate);
-  const endDate = new Date(requestData.date.endDate);
-  Transaction.find({ hotel: requestData._idHotel })
-    .then((values) => {
-      const roomBooked = values.filter((transaction) => {
-        const transactionStartDate = new Date(transaction.dateStart);
-        const transactionEndDate = new Date(transaction.dateEnd);
+exports.postRoom = async (req, res, next) => {
+  try {
+    const requestData = req.body.data;
 
-        const isStartDateInRange =
-          transactionStartDate >= startDate && transactionStartDate <= endDate;
-        const isEndDateInRange =
-          transactionEndDate >= startDate && transactionEndDate <= endDate;
-        const allDateInRange =
-          transactionStartDate >= startDate &&
-          transactionStartDate <= endDate &&
-          transactionEndDate >= startDate &&
-          transactionEndDate <= endDate;
-        const allDateOutRange =
-          transactionStartDate <= startDate &&
-          transactionStartDate <= endDate &&
-          transactionEndDate >= startDate &&
-          transactionEndDate >= endDate;
-        return (
-          isStartDateInRange ||
-          isEndDateInRange ||
-          allDateInRange ||
-          allDateOutRange
-        );
-      });
-      return roomBooked;
-    })
-    .then((roomBooked) => {
-      const listRoomBooked = [];
+    const listID = requestData.listIdRoom;
+    const startDate = new Date(requestData.date.startDate);
+    const endDate = new Date(requestData.date.endDate);
 
-      roomBooked.map((tranItem) => {
-        listRoomBooked.push(...tranItem.room);
+    const transactions = await Transaction.find({
+      hotel: requestData._idHotel,
+    });
+
+    const roomBooked = transactions.filter((transaction) => {
+      const transactionStartDate = new Date(transaction.dateStart);
+      const transactionEndDate = new Date(transaction.dateEnd);
+
+      return (
+        // (transactionStartDate <= startDate && transactionEndDate <= endDate) ||
+        (transactionStartDate >= startDate &&
+          transactionStartDate <= endDate) ||
+        (transactionEndDate >= startDate && transactionEndDate <= endDate) ||
+        (transactionStartDate <= startDate && transactionEndDate >= endDate)
+      );
+    });
+
+    const listRoomBooked = roomBooked.reduce((acc, tranItem) => {
+      acc.push(...tranItem.room);
+      return acc;
+    }, []);
+
+    if (listRoomBooked.length > 0) {
+      const roomIdsBooked = listRoomBooked.map((item) => item._id.toString());
+      const dataRespon = await Room.find({
+        _id: { $in: listID, $nin: roomIdsBooked },
       });
-      return listRoomBooked;
-    })
-    .then(async (listRoomBooked) => {
-      if (listRoomBooked.length > 0) {
-        const roomIdsBooked = listRoomBooked.map((item) => item._id.toString());
-        const dataRespon = await Room.find({
-          _id: { $in: listID, $nin: roomIdsBooked },
-        });
-        res.json(dataRespon);
-      } else {
-        const dataRespon = await Room.find({ _id: { $in: listID } });
-        res.json(dataRespon);
-      }
-    })
-    .catch((err) => console.log(err));
+      res.json(dataRespon);
+    } else {
+      const dataRespon = await Room.find({ _id: { $in: listID } });
+
+      res.json(dataRespon);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
 };
 
 exports.updateRoomAvailability = async (req, res, next) => {

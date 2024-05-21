@@ -31,7 +31,7 @@ function Login() {
           setErrors({ ...errors, password: "Incorrect username or password" });
         } else {
           dispatch({ type: LOGIN, user: data });
-          return navigate("/");
+          return navigate(-1);
         }
       })
       .catch((err) =>
@@ -95,7 +95,6 @@ function Login() {
         <button type="submit" onClick={handlerLogin}>
           Login
         </button>
-        
       </form>
     </>
   );

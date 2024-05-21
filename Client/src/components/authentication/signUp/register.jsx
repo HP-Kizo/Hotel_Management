@@ -14,7 +14,7 @@ function Register() {
   const navigate = useNavigate();
 
   const [errors, setErrors] = useState({});
-
+  console.log(formData);
   const sendDataRegister = () => {
     fetch("http://localhost:5000/users/register", {
       method: "POST",
@@ -25,7 +25,8 @@ function Register() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.message) {
+        console.log(data);
+        if (data.message === "OK") {
           return navigate("/login");
         } else {
           setErrors({ ...errors, username: data.error });

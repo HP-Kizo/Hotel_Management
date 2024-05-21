@@ -15,14 +15,6 @@ exports.postUserLogin = async (req, res, next) => {
       return res.status(400).json({ error: "Wrong username or password" });
     }
 
-    // res.cookie("add", "ADD");
-    req.session.user = username;
-    req.session.isLoggedIn = true;
-    console.log("#1", req.sessionID);
-    res.cookie("sessionID", req.sessionID, {
-      maxAge: 1000 * 60 * 60 * 24 * 7, // Thời gian sống của cookie (ví dụ: 1 tuần)
-      httpOnly: true, // Chỉ có thể truy cập cookie thông qua HTTP và không bằng JavaScript
-    });
     res.status(200).json({
       _id: user._id,
       username: user.username,
@@ -45,7 +37,7 @@ exports.postUserRegister = (req, res, next) => {
   })
     .then(async (exists) => {
       if (exists) {
-        return res.status(409).json({ error: "Username exists" });
+        return res.status(409).json({ error: "Username/Email exists" });
       } else {
         const newUser = new User({
           username: req.body.username,
@@ -58,7 +50,7 @@ exports.postUserRegister = (req, res, next) => {
           .save()
           .then((savedUser) => {
             const { password, isAdmin, ...otherDetails } = savedUser._doc;
-            res.status(200).json(otherDetails);
+            res.status(200).json({ ...otherDetails, message: "OK" });
           })
           .catch((error) => {
             console.error(error);

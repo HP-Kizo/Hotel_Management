@@ -77,6 +77,7 @@ const List = () => {
                     Min price <small>per night</small>
                   </span>
                   <input
+                    value={form.min}
                     name="min"
                     onChange={handlerChange}
                     type="number"
@@ -88,6 +89,7 @@ const List = () => {
                     Max price <small>per night</small>
                   </span>
                   <input
+                    value={form.max}
                     name="max"
                     onChange={handlerChange}
                     type="number"
@@ -155,7 +157,9 @@ const List = () => {
                   key={hotel._id}
                 />
               ))}
-            {!data && !isLoading && <span>Not found hotel</span>}
+            {!isLoading && data && data.length === 0 && (
+              <span>Not found hotel</span>
+            )}
           </div>
         </div>
       </div>

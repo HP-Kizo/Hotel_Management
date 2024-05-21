@@ -46,12 +46,6 @@ exports.adminAddHotel = async (req, res, next) => {
 exports.getHotel = async (req, res, next) => {
   try {
     const hotels = await Hotel.find();
-    req.session.test = "TEST";
-    console.log("#2", req.sessionID);
-
-    // console.log(req.session.user);
-    // console.log(req.session.isLoggedIn);
-
     res.status(200).json(hotels);
   } catch (error) {
     next(createError(500, "Not Found Hotel"));
@@ -59,14 +53,13 @@ exports.getHotel = async (req, res, next) => {
 };
 
 exports.seacchHotel = async (req, res, next) => {
-  console.log('#read',req.session.test);
   const request = req.query;
   const numberPeople = parseInt(request.adult) + parseInt(request.children);
   const regex = new RegExp(request.city, "i");
   try {
     const searchHotel = await Hotel.find({
       city: regex,
-      cheapestPrice: { $gte: request.min, $lte: request.max },
+      cheapestPrice: { $gte: request.min , $lte: request.max },
     });
     const hotels = searchHotel.filter(
       (hotel) => hotel.rooms.length >= request.room
@@ -107,7 +100,6 @@ exports.getDetailHotel = (req, res, next) => {
 };
 
 exports.postHotel = async (req, res, next) => {
-  console.log(req.session.test);
   const searchKeyword = req.body;
   let numberPeople =
     parseInt(searchKeyword.options.adult) +

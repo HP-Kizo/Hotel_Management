@@ -19,8 +19,28 @@ const Hotel = () => {
   const param = useParams();
   const navigate = useNavigate();
   const location = useLocation();
-  const [options, setOptions] = useState(location.state.options);
-  const [date, setDate] = useState(location.state.date);
+  console.log(location);
+  const [options, setOptions] = useState(
+    location.state
+      ? location.state.options
+      : {
+          adult: 1,
+          children: 0,
+          room: 1,
+        }
+  );
+  const [date, setDate] = useState(
+    location.state
+      ? location.state.date
+      : [
+          {
+            startDate: new Date(),
+            endDate: new Date(),
+            key: "selection",
+          },
+        ]
+  );
+  console.log(date);
   const userLogin = useSelector((state) => state.userLogin);
   const [showBooking, setShowBooking] = useState(false);
   const { data, isLoading, error, reFetch } = useFetch(
@@ -35,8 +55,7 @@ const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
   const differenceInDays = Math.ceil(
-    (new Date(location.state.date[0].endDate) -
-      new Date(location.state.date[0].startDate)) /
+    (new Date(date[0].endDate) - new Date(date[0].startDate)) /
       (1000 * 60 * 60 * 24) +
       1
   );
@@ -156,7 +175,7 @@ const Hotel = () => {
                 <p className="hotelDesc">{data.desc}</p>
               </div>
               <div className="hotelDetailsPrice">
-                <h1>Perfect for a 1-night stay!</h1>
+                <h1>Perfect for a {differenceInDays}-night stay!</h1>
                 <span>
                   Located in the real heart of {data.city}, this property has an
                   excellent location score of {data.rating}!
@@ -170,9 +189,7 @@ const Hotel = () => {
             </div>
           </div>
         )}
-        {showBooking && (
-          <FormBooking state={location.state.date} hotelDetail={data} />
-        )}
+        {showBooking && <FormBooking state={date} hotelDetail={data} />}
         <MailList />
         <Footer />
       </div>

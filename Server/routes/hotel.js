@@ -3,10 +3,10 @@ const express = require("express");
 const hotelController = require("../controllers/hotel");
 const middlewareController = require("../controllers/middleware");
 
-const router = express.Router();
+const router = express.Router();  
 
-router.post("/test", hotelController.testAPI);
-router.get("/read", hotelController.sendAPI);
+// router.post("/test", hotelController.testAPI);
+// router.get("/read", hotelController.sendAPI);
 
 // CREATER
 router.post(

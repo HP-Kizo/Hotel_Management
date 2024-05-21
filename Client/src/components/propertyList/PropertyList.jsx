@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "./propertyList.css";
 
 const PropertyList = ({ dataHotel }) => {
@@ -6,10 +7,35 @@ const PropertyList = ({ dataHotel }) => {
       return data.type === type;
     });
   };
+  const navigate = useNavigate();
+  const stateNav = () => {
+    return {
+      destination: "",
+      options: {
+        adult: 1,
+        children: 0,
+        room: 1,
+      },
+      date: [
+        {
+          startDate: new Date(),
+          endDate: new Date(),
+          key: "selection",
+        },
+      ],
+    };
+  };
   return (
     dataHotel.length > 0 && (
       <div className="pList">
-        <div className="pListItem">
+        <div
+          className="pListItem"
+          onClick={() => {
+            navigate("/hotels", {
+              state: stateNav(),
+            });
+          }}
+        >
           <img
             src="https://cf.bstatic.com/xdata/images/xphoto/square300/57584488.webp?k=bf724e4e9b9b75480bbe7fc675460a089ba6414fe4693b83ea3fdd8e938832a6&o="
             alt=""
